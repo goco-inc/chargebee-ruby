@@ -49,14 +49,14 @@ module ChargeBee
         else
             raise IOError.new("IO Exception when trying to connect to chargebee with url #{opts[:url]} . Reason #{e}",e)
         end
-      rescue Exception => e
+      rescue RestClient::Exception => e
             raise IOError.new("IO Exception when trying to connect to chargebee with url #{opts[:url]} . Reason #{e}",e)        
       end
       rbody = response.body
       rcode = response.code
       begin
         resp = JSON.parse(rbody)
-      rescue Exception => e
+      rescue => e
         raise Error.new("Response not in JSON format. Probably not a ChargeBee response \n #{rbody.inspect}",e)
       end
       resp = Util.symbolize_keys(resp)
@@ -70,7 +70,7 @@ module ChargeBee
       begin
         error_obj = JSON.parse(rbody)
         error_obj = Util.symbolize_keys(error_obj)
-      rescue Exception => e
+      rescue => e
         raise Error.new("Error response not in JSON format. The http status code is #{rcode} \n #{rbody.inspect}",e)
       end
       type = error_obj[:type]
