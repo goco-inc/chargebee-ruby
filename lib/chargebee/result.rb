@@ -10,6 +10,12 @@ module ChargeBee
         {:addons => Subscription::Addon, :coupons => Subscription::Coupon, :shipping_address => Subscription::ShippingAddress, :referral_info => Subscription::ReferralInfo});
         return subscription;
     end
+    
+    def subscriptions() 
+        subscriptions = get(:subscriptions, Subscription,
+        {:addons => Subscription::Addon, :coupons => Subscription::Coupon, :shipping_address => Subscription::ShippingAddress, :referral_info => Subscription::ReferralInfo});
+        return subscriptions;
+    end
 
     def customer() 
         customer = get(:customer, Customer,
